@@ -1,0 +1,97 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+// Structure to hold event data
+struct Event {
+    int id;
+    string name;
+    string date;
+    double budget;
+};
+
+// Function to add a new event
+void addEvent(vector<Event>& events) {
+    Event e;
+
+    cout << "Enter Event ID: ";
+    cin >> e.id;
+    cin.ignore();
+
+    cout << "Enter Event Name: ";
+    getline(cin, e.name);
+
+    cout << "Enter Event Date (e.g. 2026-05-10): ";
+    getline(cin, e.date);
+
+    cout << "Enter Event Budget: ";
+    cin >> e.budget;
+
+    events.push_back(e);
+
+    cout << "Event added successfully!\n\n";
+}
+
+// Function to display all events
+void displayEvents(const vector<Event>& events) {
+    if (events.empty()) {
+        cout << "No events available.\n\n";
+        return;
+    }
+
+    cout << "\n--- Event List ---\n";
+    for (const auto& e : events) {
+        cout << "ID: " << e.id << endl;
+        cout << "Name: " << e.name << endl;
+        cout << "Date: " << e.date << endl;
+        cout << "Budget: " << e.budget << endl;
+        cout << "----------------------\n";
+    }
+}
+
+// Function to calculate total budget
+void totalBudget(const vector<Event>& events) {
+    double total = 0;
+
+    for (const auto& e : events) {
+        total += e.budget;
+    }
+
+    cout << "Total Budget of All Events: " << total << endl << endl;
+}
+
+int main() {
+    vector<Event> events;
+    int choice;
+
+    do {
+        cout << "\n===== Event Management System =====\n";
+        cout << "1. Add Event\n";
+        cout << "2. Display Events\n";
+        cout << "3. Show Total Budget\n";
+        cout << "4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addEvent(events);
+                break;
+            case 2:
+                displayEvents(events);
+                break;
+            case 3:
+                totalBudget(events);
+                break;
+            case 4:
+                cout << "Exiting program...\n";
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
